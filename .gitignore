@@ -1,0 +1,7 @@
+*.exe
+*.o
+*.swp
+*.sw?
+*.cbp
+*.depend
+*.layout
