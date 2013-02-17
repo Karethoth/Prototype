@@ -1,8 +1,8 @@
 #include <cxxtest/TestSuite.h>
 #include <iostream>
 
-#include "../engine/entitySystem.cc"
-#include "../game/componentDataModels/positionComponent.cc"
+#include "../engine/entitySystem.hh"
+#include "../game/componentDataModels/positionComponent.hh"
 
 using namespace Engine;
 using namespace std;
@@ -98,3 +98,4 @@ class EntitySystemTestSuite : public CxxTest::TestSuite
     }
   }
 };
+

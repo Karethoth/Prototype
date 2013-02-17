@@ -5,3 +5,8 @@
 *.cbp
 *.depend
 *.layout
+prototype
+runTests
+obj
+bin
+*.test.cc
