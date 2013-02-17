@@ -147,11 +147,35 @@ vector<ComponentDataTemplate*>* EntitySystem::GetComponentDataForEntry( int comp
     components->push_back( table[(*it).second.componentDataId] );
   }
 
-  // Return vector
   pthread_mutex_unlock( &entitySystemMutex );
 
+  // Return vector
   return components;
 };
+
+
+
+EntityComponent* EntitySystem::GetEntityComponent( int componentType, unsigned long componentId )
+{
+  EntityComponent *entityComponent = nullptr;
+  std::multimap<unsigned long, EntityComponent>::iterator it;
+
+  pthread_mutex_lock( &entitySystemMutex );
+
+  for( it = entityComponents.begin(); it != entityComponents.end(); ++it )
+  {
+    if( (*it).second.componentId == componentType &&
+        (*it).second.componentDataId == componentId )
+    {
+      entityComponent = &((*it).second);
+      break;
+    }
+  }
+
+  pthread_mutex_unlock( &entitySystemMutex );
+
+  return entityComponent;
+}
 
 
 

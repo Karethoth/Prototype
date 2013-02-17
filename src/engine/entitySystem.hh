@@ -56,7 +56,9 @@ namespace Engine
     unsigned long CreateNewEntity( std::string debugName );
     bool CreateComponent( Component component );
     unsigned long CreateEntityComponentAndAddTo( int componentType, unsigned long entityId, ComponentDataTemplate *initialValue );
+
     std::vector<ComponentDataTemplate*>* GetComponentDataForEntry( int componentType, unsigned long entityId );
+    EntityComponent* GetEntityComponent( int componentType, unsigned long componentId );
 
 
    protected:
