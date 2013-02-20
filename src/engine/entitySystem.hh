@@ -47,6 +47,11 @@ namespace Engine
 
     virtual std::string Print() = 0;
 
+    void SetIds( unsigned long entity, unsigned long componentData );
+
+    unsigned long entityId;
+    unsigned long componentDataId;
+
 
    protected:
     pthread_mutex_t mutex;
@@ -65,6 +70,7 @@ namespace Engine
     unsigned long CreateEntityComponentAndAddTo( int componentType, unsigned long entityId, ComponentDataTemplate *initialValue );
 
     std::vector<ComponentDataTemplate*>* GetComponentDataForEntry( int componentType, unsigned long entityId );
+    std::vector<ComponentDataTemplate*>* GetComponentDatasOfType( int componentType );
     EntityComponent* GetEntityComponent( int componentType, unsigned long componentId );
 
 

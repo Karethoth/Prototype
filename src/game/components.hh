@@ -5,12 +5,15 @@
 
 #include "../engine/entitySystem.hh"
 #include "componentDataModels/positionComponent.hh"
+#include "componentDataModels/velocityComponent.hh"
+#include "componentDataModels/rotationComponent.hh"
 
 
 enum eComponentType
 {
   UNDEF,
   POSITION_COMPONENT,
+  VELOCITY_COMPONENT,
   ROTATION_COMPONENT
 };
 

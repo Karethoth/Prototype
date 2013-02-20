@@ -51,10 +51,12 @@ void IntroScene::CreateScene()
   // Create cube entity and create it's EntityComponents for it
   cubeEntityId = entitySystem->CreateNewEntity( "CubeEntity" );
   unsigned long positionEntityComponentId = entitySystem->CreateEntityComponentAndAddTo( POSITION_COMPONENT, cubeEntityId, new PositionComponent() );
-  unsigned long rotationEntityComponentId = entitySystem->CreateEntityComponentAndAddTo( ROTATION_COMPONENT, cubeEntityId, new PositionComponent() );
+  unsigned long velocityEntityComponentId = entitySystem->CreateEntityComponentAndAddTo( VELOCITY_COMPONENT, cubeEntityId, new VelocityComponent() );
+  unsigned long rotationEntityComponentId = entitySystem->CreateEntityComponentAndAddTo( ROTATION_COMPONENT, cubeEntityId, new RotationComponent() );
 
   cout << "CubeEntityId = " << cubeEntityId << "\n";
   cout << "positionEntityComponentId = " << positionEntityComponentId << "\n";
+  cout << "velocityEntityComponentId = " << velocityEntityComponentId << "\n";
   cout << "rotationEntityComponentId = " << rotationEntityComponentId << "\n";
 
   // Get position component(s) for the cube

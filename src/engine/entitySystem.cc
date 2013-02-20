@@ -20,6 +20,14 @@ int ComponentDataTemplate::Unlock()
 
 
 
+void ComponentDataTemplate::SetIds( unsigned long entity, unsigned long componentData )
+{
+  entityId        = entity;
+  componentDataId = componentData;
+}
+
+
+
 EntitySystem::EntitySystem()
 {
   pthread_mutex_init( &entitySystemMutex,NULL );
@@ -109,6 +117,8 @@ unsigned long EntitySystem::CreateEntityComponentAndAddTo( int componentType, un
     componentDataId = 1;
   }
 
+  initialValue->SetIds( entityId, componentDataId );
+
   componentData[component->tableName][componentDataId] = initialValue;
 
 
@@ -132,7 +142,6 @@ vector<ComponentDataTemplate*>* EntitySystem::GetComponentDataForEntry( int comp
 
   pthread_mutex_lock( &entitySystemMutex );
 
-  // For every EntityComponent where entityId == entityId && componentId == componentType
   pair< multimap<unsigned long, EntityComponent>::iterator,
         multimap<unsigned long, EntityComponent>::iterator > ret;
 
@@ -166,6 +175,37 @@ vector<ComponentDataTemplate*>* EntitySystem::GetComponentDataForEntry( int comp
   // Return vector
   return components;
 };
+
+
+
+vector<ComponentDataTemplate*>* EntitySystem::GetComponentDatasOfType( int componentType )
+{
+  vector<ComponentDataTemplate*> *components = new vector<ComponentDataTemplate*>();
+  Component *component = GetComponent( componentType );
+  if( !component )
+  {
+    return components;
+  }
+
+  pthread_mutex_lock( &entitySystemMutex );
+
+  if( !component )
+    return components;
+
+
+  // Save the reference to the table in a variable
+  map<unsigned long, ComponentDataTemplate*> table = componentData[component->tableName];
+
+  for( map<unsigned long, ComponentDataTemplate*>::iterator cit = table.begin(); cit != table.end(); ++cit )
+  {
+    components->push_back( (*cit).second );
+  }
+
+  pthread_mutex_unlock( &entitySystemMutex );
+
+  // Return vector
+  return components;
+}
 
 
 

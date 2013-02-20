@@ -16,20 +16,34 @@ void* StartMovementSystem( void *entitySystem )
   EntitySystem *es = static_cast<EntitySystem*>( entitySystem );
   cout << "Starting Movement System.\n";
 
-  // So far the rest of this function is useless
+  // Got to do some timing stuff here
 
-  vector<ComponentDataTemplate*> *positionData = es->GetComponentDataForEntry( POSITION_COMPONENT, 1 );
-  cout << "MS: positionData.size() = " << positionData->size() << "\n";
-
-  PositionComponent *pc;
-  for( vector<ComponentDataTemplate*>::iterator it = positionData->begin(); it != positionData->end(); ++it )
+  while( true )
   {
-    pc = dynamic_cast<PositionComponent*>( *it );
+    vector<ComponentDataTemplate*> *velocities = es->GetComponentDatasOfType( VELOCITY_COMPONENT );
+    cout << "MS: velocities.size() = " << velocities->size() << "\n";
 
-    pc->Lock();
-    pc->position.x += 1;
-    cout << "MS: " << pc->Print() << "\n";
-    pc->Unlock();
+    VelocityComponent *velocity;
+
+    for( vector<ComponentDataTemplate*>::iterator it = velocities->begin(); it != velocities->end(); ++it )
+    {
+      velocity = dynamic_cast<VelocityComponent*>( *it );
+
+      velocity->Lock();
+
+      vector<ComponentDataTemplate*> *positions = es->GetComponentDataForEntry( POSITION_COMPONENT, velocity->entityId );
+      if( positions->size() > 0 )
+      {
+        PositionComponent *position = dynamic_cast<PositionComponent*>( (*positions->begin()) );
+        position->Lock();
+        position->position.x += velocity->velocity.x;
+        position->position.y += velocity->velocity.y;
+        position->position.z += velocity->velocity.z;
+        position->Unlock();
+      }
+
+      velocity->Unlock();
+    }
   }
 
   pthread_exit( NULL );

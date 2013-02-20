@@ -16,7 +16,7 @@ PositionComponent::PositionComponent()
 
 string PositionComponent::Print()
 {
-  string msg = "{";
+  string msg = "Position: {";
   msg.append( to_string( position.x ) );
   msg.append( "," );
   msg.append( to_string( position.y ) );
