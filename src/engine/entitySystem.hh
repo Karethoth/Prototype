@@ -42,7 +42,14 @@ namespace Engine
    public:
     ~ComponentDataTemplate();
 
+    int Lock();
+    int Unlock();
+
     virtual std::string Print() = 0;
+
+
+   protected:
+    pthread_mutex_t mutex;
   };
 
 

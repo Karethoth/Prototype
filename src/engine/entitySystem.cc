@@ -6,6 +6,20 @@ using namespace Engine;
 using namespace std;
 
 
+int ComponentDataTemplate::Lock()
+{
+  return pthread_mutex_lock( &mutex );
+}
+
+
+
+int ComponentDataTemplate::Unlock()
+{
+  return pthread_mutex_unlock( &mutex );
+}
+
+
+
 EntitySystem::EntitySystem()
 {
   pthread_mutex_init( &entitySystemMutex,NULL );

@@ -13,5 +13,7 @@
 
 #include "game/components.hh"
 
+#include "game/systems/movementSystem.hh"
+
 
 #endif // __MAIN_HH__

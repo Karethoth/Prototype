@@ -8,6 +8,7 @@ using namespace std;
 
 PositionComponent::PositionComponent()
 {
+  mutex = PTHREAD_MUTEX_INITIALIZER;
   position = {0,0,0};
 }
 
