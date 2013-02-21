@@ -7,7 +7,9 @@ using namespace Engine::Stacks;
 using namespace std;
 using std::cout;
 
+
 EntitySystem entitySystem;
+MovementSystem movementSystem;
 
 
 int main( int argc, char **argv )
@@ -39,10 +41,13 @@ int main( int argc, char **argv )
   introScene->CreateScene();
 
   // Start systems
+  movementSystem.SetEntitySystem( &entitySystem );
+  movementSystem.SetPriority( 1000 );
   pthread_t movementSystemThread;
   int       movementSystemId;
   void     *movementSystemStatus;
-  movementSystemId = pthread_create( &movementSystemThread, NULL, StartMovementSystem, static_cast<void*>( &entitySystem ) );
+
+  movementSystemId = pthread_create( &movementSystemThread, NULL, MovementSystem::RunSystem, static_cast<void*>( &movementSystem ) );
 
   // Wait for the systems to stop
   pthread_join( movementSystemThread, &movementSystemStatus );
