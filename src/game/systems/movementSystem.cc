@@ -27,6 +27,8 @@ MovementSystem::~MovementSystem()
 
 void* MovementSystem::Run()
 {
+  isRunning = true;
+
   // Got to do some timing stuff here
 
   vector<ComponentDataTemplate*> *velocities = entitySystem->GetComponentDatasOfType( VELOCITY_COMPONENT );
@@ -54,6 +56,7 @@ void* MovementSystem::Run()
     velocity->Unlock();
   }
 
+  isRunning = false;
   pthread_exit( NULL );
   return nullptr;
 }

@@ -1,6 +1,7 @@
 #include "introScene.hh"
 #include "../../engine/mesh.hh"
 #include "../components.hh"
+#include "../messages/tickMessage.hh"
 
 #include <iostream>
 #include <vector>
