@@ -1,5 +1,8 @@
 #include "baseSystem.hh"
 
+using namespace Engine;
+using namespace std;
+
 
 bool BaseSystem::IsRunning()
 {
@@ -15,7 +18,7 @@ void BaseSystem::SetPriority( int priority )
 
 
 
-void BaseSystem::SetEntitySystem( Engine::EntitySystem *entitySystem )
+void BaseSystem::SetEntitySystem( shared_ptr<EntitySystem> entitySystem )
 {
   this->entitySystem = entitySystem;
 }

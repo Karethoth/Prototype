@@ -5,6 +5,8 @@
 
 #include "managers/meshManager.hh"
 #include "entitySystem.hh"
+#include "message.hh"
+#include "baseSystem.hh"
 
 
 namespace Engine
@@ -17,6 +19,7 @@ namespace Engine
 
     virtual bool Run();
     virtual void Stop();
+    virtual bool Tick( Message *message );
 
     void SetEntitySystem( std::shared_ptr<EntitySystem> es );
 
@@ -28,6 +31,7 @@ namespace Engine
 
     Managers::MeshManager meshManager;
     std::shared_ptr<EntitySystem> entitySystem;
+    std::map<int, BaseSystem*> systems;
   };
 }
 

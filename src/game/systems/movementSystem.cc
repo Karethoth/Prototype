@@ -2,6 +2,7 @@
 
 #include "../components.hh"
 #include "../../engine/entitySystem.hh"
+#include "../messages/tickMessage.hh"
 
 #include <iostream>
 #include <memory>
@@ -27,12 +28,18 @@ MovementSystem::~MovementSystem()
 
 void* MovementSystem::Run()
 {
+  pthread_exit( NULL );
+  return nullptr;
+}
+
+
+
+bool MovementSystem::Tick( Message *message )
+{
+  TickMessage *tickMessage = static_cast<TickMessage*>( message );
   isRunning = true;
 
-  // Got to do some timing stuff here
-
   vector<ComponentDataTemplate*> *velocities = entitySystem->GetComponentDatasOfType( VELOCITY_COMPONENT );
-  cout << "MS: velocities.size() = " << velocities->size() << "\n";
 
   VelocityComponent *velocity;
 
@@ -45,11 +52,12 @@ void* MovementSystem::Run()
     vector<ComponentDataTemplate*> *positions = entitySystem->GetComponentDataForEntry( POSITION_COMPONENT, velocity->entityId );
     if( positions->size() > 0 )
     {
+      float multiplier = (float)tickMessage->frameDelta.count()/10000.0;
       PositionComponent *position = dynamic_cast<PositionComponent*>( (*positions->begin()) );
       position->Lock();
-      position->position.x += velocity->velocity.x;
-      position->position.y += velocity->velocity.y;
-      position->position.z += velocity->velocity.z;
+      position->position.x += velocity->velocity.x * multiplier;
+      position->position.y += velocity->velocity.y * multiplier;
+      position->position.z += velocity->velocity.z * multiplier;
       position->Unlock();
     }
 
@@ -57,6 +65,5 @@ void* MovementSystem::Run()
   }
 
   isRunning = false;
-  pthread_exit( NULL );
   return nullptr;
 }

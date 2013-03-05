@@ -20,6 +20,10 @@ Scene::~Scene()
 void Scene::SetEntitySystem( std::shared_ptr<EntitySystem> es )
 {
   entitySystem = es;
+  for( auto sys : systems )
+  {
+    sys.second->SetEntitySystem( entitySystem );
+  }
 }
 
 
@@ -39,6 +43,13 @@ void Scene::DestroyScene()
 bool Scene::Run()
 {
   return false;
+}
+
+
+
+bool Scene::Tick( Message *message )
+{
+  return true;
 }
 
 

@@ -2,6 +2,7 @@
 #include "../../engine/mesh.hh"
 #include "../components.hh"
 #include "../messages/tickMessage.hh"
+#include "../systems/movementSystem.hh"
 
 #include <iostream>
 #include <vector>
@@ -15,6 +16,10 @@ using namespace std;
 IntroScene::IntroScene()
 {
   sceneLengthMs = 5000;
+
+  MovementSystem *movementSystem = new MovementSystem();
+  movementSystem->SetEntitySystem( entitySystem );
+  systems[1000] = movementSystem;
 }
 
 
@@ -70,6 +75,19 @@ void IntroScene::CreateScene()
   }
 }
 
+
+
+bool IntroScene::Tick( Message *message )
+{
+  TickMessage *tickMessage = static_cast<TickMessage*>( message );
+
+  for( auto sys : systems )
+  {
+    sys.second->Tick( message );
+  }
+
+  return true;
+}
 
 
 void IntroScene::DestroyScene()

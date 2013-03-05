@@ -1,9 +1,9 @@
 #ifndef __MOVEMENTSYSTEM_HH__
 #define __MOVEMENTSYSTEM_HH__
 
-#include "baseSystem.hh"
+#include "../../engine/baseSystem.hh"
 
-class MovementSystem : public BaseSystem
+class MovementSystem : public Engine::BaseSystem
 {
  public:
   MovementSystem();
@@ -11,6 +11,7 @@ class MovementSystem : public BaseSystem
 
  protected:
   virtual void* Run();
+  virtual bool Tick( Engine::Message *message );
 };
 
 #endif // __MOVEMENTSYSTEM_HH__

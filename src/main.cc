@@ -5,11 +5,11 @@ using namespace Engine::Managers;
 using namespace Engine::Stacks;
 
 using namespace std;
+using namespace chrono;
 using std::cout;
 
 
 EntitySystem entitySystem;
-MovementSystem movementSystem;
 
 
 int main( int argc, char **argv )
@@ -40,7 +40,25 @@ int main( int argc, char **argv )
   // Finally actually create it
   introScene->CreateScene();
 
+
+  TickMessage tickMessage;
+  tickMessage.frameStart = steady_clock::now();
+  tickMessage.frameDelta = microseconds( 1 );
+  time_point<steady_clock> tmpTimePoint;
+
+  while( sceneStack.Get( 0 )->Tick( &tickMessage ) )
+  {
+    tmpTimePoint = steady_clock::now();
+    tickMessage.frameDelta = duration_cast<microseconds>( tmpTimePoint - tickMessage.frameStart );
+    tickMessage.frameStart = tmpTimePoint;
+    time_t endTime = steady_clock::to_time_t( tmpTimePoint );
+    cout << "FrameDelta: " << tickMessage.frameDelta.count() << ", FrameStart: " << endTime << "\n";
+    break;
+  }
+
   // Start systems
+  /*
+  MovementSystem movementSystem;
   movementSystem.SetEntitySystem( &entitySystem );
   movementSystem.SetPriority( 1000 );
   pthread_t movementSystemThread;
@@ -51,6 +69,6 @@ int main( int argc, char **argv )
 
   // Wait for the systems to stop
   pthread_join( movementSystemThread, &movementSystemStatus );
-
+  */
   return 0;
 }

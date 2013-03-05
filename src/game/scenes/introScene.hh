@@ -13,6 +13,8 @@ class IntroScene : public Engine::Scene
   virtual void CreateScene();
   virtual void DestroyScene();
 
+  virtual bool Tick( Engine::Message *message );
+
 
  protected:
   unsigned long cubeEntityId;

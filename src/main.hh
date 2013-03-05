@@ -4,6 +4,7 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <chrono>
 
 #include "engine/managers/sceneManager.hh"
 #include "engine/stacks/templateStack.hh"
@@ -14,6 +15,7 @@
 #include "game/components.hh"
 
 #include "game/systems/movementSystem.hh"
+#include "game/messages/tickMessage.hh"
 
 
 #endif // __MAIN_HH__
