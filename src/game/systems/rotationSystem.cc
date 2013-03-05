@@ -63,12 +63,18 @@ bool RotationSystem::Tick( Message *message )
 
       if( rotation->rotation.x > 360 )
         rotation->rotation.x -= 360;
+      else if( rotation->rotation.x < 0 )
+        rotation->rotation.x += 360;
 
       if( rotation->rotation.y > 360 )
         rotation->rotation.y -= 360;
+      else if( rotation->rotation.y < 0 )
+        rotation->rotation.y += 360;
 
       if( rotation->rotation.z > 360 )
         rotation->rotation.z -= 360;
+      else if( rotation->rotation.z < 0 )
+        rotation->rotation.z += 360;
 
       rotation->Unlock();
 
