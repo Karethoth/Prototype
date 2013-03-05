@@ -7,6 +7,7 @@
 #include "componentDataModels/positionComponent.hh"
 #include "componentDataModels/velocityComponent.hh"
 #include "componentDataModels/rotationComponent.hh"
+#include "componentDataModels/autoRotationComponent.hh"
 
 
 enum eComponentType
@@ -14,7 +15,8 @@ enum eComponentType
   UNDEF,
   POSITION_COMPONENT,
   VELOCITY_COMPONENT,
-  ROTATION_COMPONENT
+  ROTATION_COMPONENT,
+  AUTOROTATION_COMPONENT
 };
 
 

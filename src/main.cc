@@ -53,7 +53,6 @@ int main( int argc, char **argv )
     tickMessage.frameStart = tmpTimePoint;
     time_t endTime = steady_clock::to_time_t( tmpTimePoint );
     cout << "FrameDelta: " << tickMessage.frameDelta.count() << ", FrameStart: " << endTime << "\n";
-    break;
   }
 
   // Start systems

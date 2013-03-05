@@ -43,9 +43,9 @@ bool MovementSystem::Tick( Message *message )
 
   VelocityComponent *velocity;
 
-  for( vector<ComponentDataTemplate*>::iterator it = velocities->begin(); it != velocities->end(); ++it )
+  for( auto it : *velocities )
   {
-    velocity = dynamic_cast<VelocityComponent*>( *it );
+    velocity = static_cast<VelocityComponent*>( it );
 
     velocity->Lock();
 

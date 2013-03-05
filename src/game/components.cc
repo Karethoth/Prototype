@@ -20,8 +20,15 @@ void SetupComponents( std::shared_ptr<Engine::EntitySystem> es )
                                   "Contains the rotation of an entity",
                                   "Rotations" };
 
+
+  Component autoRotationComponent = { AUTOROTATION_COMPONENT,
+                                  "AutoRotationComponent",
+                                  "Contains the rotation rate of an entity",
+                                  "AutoRotations" };
+
   // Create the component types
   es->CreateComponent( positionComponent );
   es->CreateComponent( velocityComponent );
   es->CreateComponent( rotationComponent );
+  es->CreateComponent( autoRotationComponent );
 }

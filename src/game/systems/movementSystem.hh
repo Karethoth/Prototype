@@ -9,9 +9,11 @@ class MovementSystem : public Engine::BaseSystem
   MovementSystem();
   ~MovementSystem();
 
+  virtual bool Tick( Engine::Message *message );
+
+
  protected:
   virtual void* Run();
-  virtual bool Tick( Engine::Message *message );
 };
 
 #endif // __MOVEMENTSYSTEM_HH__

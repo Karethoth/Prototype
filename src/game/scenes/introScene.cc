@@ -3,6 +3,7 @@
 #include "../components.hh"
 #include "../messages/tickMessage.hh"
 #include "../systems/movementSystem.hh"
+#include "../systems/rotationSystem.hh"
 
 #include <iostream>
 #include <vector>
@@ -18,8 +19,10 @@ IntroScene::IntroScene()
   sceneLengthMs = 5000;
 
   MovementSystem *movementSystem = new MovementSystem();
-  movementSystem->SetEntitySystem( entitySystem );
+  RotationSystem *rotationSystem = new RotationSystem();
+
   systems[1000] = movementSystem;
+  systems[2000] = rotationSystem;
 }
 
 
@@ -59,11 +62,13 @@ void IntroScene::CreateScene()
   unsigned long positionEntityComponentId = entitySystem->CreateEntityComponentAndAddTo( POSITION_COMPONENT, cubeEntityId, new PositionComponent() );
   unsigned long velocityEntityComponentId = entitySystem->CreateEntityComponentAndAddTo( VELOCITY_COMPONENT, cubeEntityId, new VelocityComponent() );
   unsigned long rotationEntityComponentId = entitySystem->CreateEntityComponentAndAddTo( ROTATION_COMPONENT, cubeEntityId, new RotationComponent() );
+  unsigned long autoRotationEntityComponentId = entitySystem->CreateEntityComponentAndAddTo( AUTOROTATION_COMPONENT, cubeEntityId, new AutoRotationComponent( 0, 1, 0 ) );
 
   cout << "CubeEntityId = " << cubeEntityId << "\n";
   cout << "positionEntityComponentId = " << positionEntityComponentId << "\n";
   cout << "velocityEntityComponentId = " << velocityEntityComponentId << "\n";
   cout << "rotationEntityComponentId = " << rotationEntityComponentId << "\n";
+  cout << "autoRotationEntityComponentId = " << autoRotationEntityComponentId << "\n";
 
   // Get position component(s) for the cube
   vector<ComponentDataTemplate*> *positionData = entitySystem->GetComponentDataForEntry( ROTATION_COMPONENT, cubeEntityId );
