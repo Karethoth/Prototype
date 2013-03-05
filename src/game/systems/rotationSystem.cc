@@ -77,8 +77,6 @@ bool RotationSystem::Tick( Message *message )
         rotation->rotation.z += 360;
 
       rotation->Unlock();
-
-      cout << "Rotation: " << rotation->rotation.x << ", " << rotation->rotation.y << ", " << rotation->rotation.z << "\n";
     }
 
     autoRotation->Unlock();

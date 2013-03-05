@@ -42,16 +42,16 @@ int main( int argc, char **argv )
 
 
   TickMessage tickMessage;
-  tickMessage.frameStart = steady_clock::now();
-  tickMessage.frameDelta = microseconds( 1 );
-  time_point<steady_clock> tmpTimePoint;
+  tickMessage.frameStart = high_resolution_clock::now();
+  tickMessage.frameDelta = GameTicks( 1 );
+  time_point<high_resolution_clock> tmpTimePoint;
 
   while( sceneStack.Get( 0 )->Tick( &tickMessage ) )
   {
-    tmpTimePoint = steady_clock::now();
-    tickMessage.frameDelta = duration_cast<microseconds>( tmpTimePoint - tickMessage.frameStart );
+    tmpTimePoint = high_resolution_clock::now();
+    tickMessage.frameDelta = duration_cast<GameTicks>( tmpTimePoint - tickMessage.frameStart );
     tickMessage.frameStart = tmpTimePoint;
-    time_t endTime = steady_clock::to_time_t( tmpTimePoint );
+    time_t endTime = high_resolution_clock::to_time_t( tmpTimePoint );
     cout << "FrameDelta: " << tickMessage.frameDelta.count() << ", FrameStart: " << endTime << "\n";
   }
 

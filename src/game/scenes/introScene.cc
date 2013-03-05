@@ -4,6 +4,7 @@
 #include "../messages/tickMessage.hh"
 #include "../systems/movementSystem.hh"
 #include "../systems/rotationSystem.hh"
+#include "../systems/renderSystem.hh"
 
 #include <iostream>
 #include <vector>
@@ -20,9 +21,11 @@ IntroScene::IntroScene()
 
   MovementSystem *movementSystem = new MovementSystem();
   RotationSystem *rotationSystem = new RotationSystem();
+  RenderSystem *renderSystem = new RenderSystem();
 
   systems[1000] = movementSystem;
   systems[2000] = rotationSystem;
+  systems[3000] = renderSystem;
 }
 
 
