@@ -40,7 +40,7 @@ namespace Engine
   class ComponentDataTemplate
   {
    public:
-    ~ComponentDataTemplate();
+    virtual ~ComponentDataTemplate();
 
     int Lock();
     int Unlock();

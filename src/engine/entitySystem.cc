@@ -6,6 +6,12 @@ using namespace Engine;
 using namespace std;
 
 
+ComponentDataTemplate::~ComponentDataTemplate()
+{
+}
+
+
+
 int ComponentDataTemplate::Lock()
 {
   return pthread_mutex_lock( &mutex );

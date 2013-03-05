@@ -63,12 +63,14 @@ void IntroScene::CreateScene()
   unsigned long velocityEntityComponentId = entitySystem->CreateEntityComponentAndAddTo( VELOCITY_COMPONENT, cubeEntityId, new VelocityComponent() );
   unsigned long rotationEntityComponentId = entitySystem->CreateEntityComponentAndAddTo( ROTATION_COMPONENT, cubeEntityId, new RotationComponent() );
   unsigned long autoRotationEntityComponentId = entitySystem->CreateEntityComponentAndAddTo( AUTOROTATION_COMPONENT, cubeEntityId, new AutoRotationComponent( 0, 1, 0 ) );
+  unsigned long meshEntityComponentId = entitySystem->CreateEntityComponentAndAddTo( MESH_COMPONENT, cubeEntityId, new MeshComponent( cubeName ) );
 
   cout << "CubeEntityId = " << cubeEntityId << "\n";
   cout << "positionEntityComponentId = " << positionEntityComponentId << "\n";
   cout << "velocityEntityComponentId = " << velocityEntityComponentId << "\n";
   cout << "rotationEntityComponentId = " << rotationEntityComponentId << "\n";
   cout << "autoRotationEntityComponentId = " << autoRotationEntityComponentId << "\n";
+  cout << "meshEntityComponentId = " << meshEntityComponentId << "\n";
 
   // Get position component(s) for the cube
   vector<ComponentDataTemplate*> *positionData = entitySystem->GetComponentDataForEntry( ROTATION_COMPONENT, cubeEntityId );
