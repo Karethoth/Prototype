@@ -21,12 +21,14 @@ int main( int argc, char **argv )
 
   // Setup OpenGL
   float windowRatio = (float) 600 / (float) 400;
-  glShadeModel( GL_SMOOTH );
-  glCullFace( GL_BACK );
-  glFrontFace( GL_CCW );
-  glEnable( GL_CULL_FACE );
+  //glShadeModel( GL_SMOOTH );
+  //glCullFace( GL_BACK );
+  //glFrontFace( GL_CW );
+  //glEnable( GL_CULL_FACE );
   glClearColor( 0, 0, 0, 0 );
   glViewport( 0, 0, 600, 400 );
+  glMatrixMode( GL_PROJECTION );
+  glLoadIdentity();
   gluPerspective( 60.0, windowRatio, 1.0, 1024.0 );
 
 
@@ -77,7 +79,6 @@ int main( int argc, char **argv )
     {
       switch( event.type )
       {
-       case SDL_KEYDOWN:
        case SDL_QUIT:
         running = false;
         break;

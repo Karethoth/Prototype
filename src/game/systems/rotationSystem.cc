@@ -52,7 +52,7 @@ bool RotationSystem::Tick( Message *message )
     vector<ComponentDataTemplate*> *rotations = entitySystem->GetComponentDataForEntry( ROTATION_COMPONENT, autoRotation->entityId );
     if( rotations->size() > 0 )
     {
-      float multiplier = (float)tickMessage->frameDelta.count()/10000.0;
+      float multiplier = (float)tickMessage->frameDelta.count()/1000.0;
       RotationComponent *rotation = dynamic_cast<RotationComponent*>( (*rotations->begin()) );
 
       rotation->Lock();

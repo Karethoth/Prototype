@@ -14,6 +14,7 @@ namespace Engine
     ~Mesh();
 
     void AddTriangle( Triangle& );
+    std::vector<Triangle> *GetTriangles();
 
 
    private:

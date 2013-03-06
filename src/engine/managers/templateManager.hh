@@ -66,8 +66,6 @@ namespace Engine
         return &items;
       }
     };
-
-
   }
 }
 

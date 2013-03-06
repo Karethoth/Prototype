@@ -11,6 +11,7 @@
 #include <GL/gl.h>
 
 using namespace Engine;
+using namespace Engine::Managers;
 using namespace std;
 
 
@@ -32,6 +33,13 @@ void* RenderSystem::Run()
 {
   pthread_exit( NULL );
   return nullptr;
+}
+
+
+
+void RenderSystem::SetMeshManager( MeshManager *meshMan )
+{
+  meshManager = meshMan;
 }
 
 
@@ -81,10 +89,38 @@ bool RenderSystem::Tick( Message *message )
         cout << "\tRotation: No rotation.\n";
       }
 
+      if( rotation )
+      {
+        glRotatef( rotation->rotation.x, 1.0, 0.0, 0.0 );
+        glRotatef( rotation->rotation.y, 0.0, 1.0, 0.0 );
+        glRotatef( rotation->rotation.z, 0.0, 0.0, 1.0 );
+      }
+
+      glTranslatef( position->position.x, position->position.y, position->position.z );
+
+      shared_ptr<Mesh> meshPointer = meshManager->Get( mesh->mesh );
+
+      if( meshPointer )
+      {
+        glBegin( GL_TRIANGLES );
+
+        auto triangles = meshPointer->GetTriangles();
+        for( auto triangle : *triangles )
+        {
+          glColor3f( 1.0, 1.0, 0.0 );
+          glVertex3f( triangle.a.x, triangle.a.y, triangle.a.z );
+          glColor3f( 1.0, 0.0, 1.0 );
+          glVertex3f( triangle.b.x, triangle.b.y, triangle.b.z );
+          glColor3f( 0.0, 1.0, 1.0 );
+          glVertex3f( triangle.c.x, triangle.c.y, triangle.c.z );
+        }
+
+        glEnd();
+      }
+
       position->Unlock();
       if( rotation )
         rotation->Unlock();
-
     }
 
     mesh->Unlock();
@@ -103,12 +139,20 @@ void RenderSystem::PreRender()
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
   glMatrixMode( GL_MODELVIEW );
-  glLoadIdentity( );
+  glEnable( GL_DEPTH_TEST );
+  glLoadIdentity();
+  glTranslatef( 0,0, -7 );
+
+  glPolygonMode(GL_FRONT, GL_LINE);
+  glPolygonMode(GL_BACK, GL_LINE);
 }
 
 
 
 void RenderSystem::PostRender()
 {
+  glPolygonMode(GL_FRONT, GL_FILL);
+  glPolygonMode(GL_BACK, GL_FILL);
+
   SDL_GL_SwapBuffers( );
 }

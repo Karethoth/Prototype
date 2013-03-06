@@ -22,6 +22,7 @@ IntroScene::IntroScene()
   MovementSystem *movementSystem = new MovementSystem();
   RotationSystem *rotationSystem = new RotationSystem();
   RenderSystem *renderSystem = new RenderSystem();
+  renderSystem->SetMeshManager( &meshManager );
 
   systems[1000] = movementSystem;
   systems[2000] = rotationSystem;
@@ -43,18 +44,58 @@ void IntroScene::CreateScene()
   shared_ptr<Mesh> cube( new Mesh() );
 
   Triangle t = {
-    { 0, 0, 0 },
-    { 10, 0, 0 },
-    { 0, 10, 0 }
+    { -1, 1, 1 },
+    { 1, 1, 1 },
+    { 1, -1, 1 }
+  };
+  cube->AddTriangle( t );
+  t = {
+    { -1, 1, 1 },
+    { 1, -1, 1 },
+    { -1, -1, 1 }
   };
   cube->AddTriangle( t );
 
   t = {
-    { 10, 10, 0 },
-    { 10, 0, 0 },
-    { 0, 10, 0 }
+    { 1, -1, -1 },
+    { 1, 1, -1 },
+    { -1, 1, -1 }
   };
   cube->AddTriangle( t );
+  t = {
+    { 1, -1, -1 },
+
+    { -1, 1, -1 },
+    { -1, -1, -1 }
+  };
+  cube->AddTriangle( t );
+
+  t = {
+    { -1, -1, -1 },
+    { -1, 1, -1 },
+    { -1, 1, 1 }
+  };
+  cube->AddTriangle( t );
+  t = {
+    { -1, -1, 1 },
+    { -1, 1, 1 },
+    { -1, -1, -1 }
+  };
+  cube->AddTriangle( t );
+
+  t = {
+    { 1, -1, -1 },
+    { 1, 1, -1 },
+    { 1, 1, 1 }
+  };
+  cube->AddTriangle( t );
+  t = {
+    { 1, -1, 1 },
+    { 1, 1, 1 },
+    { 1, -1, -1 }
+  };
+  cube->AddTriangle( t );
+
   string cubeName = "Cube";
 
   meshManager.Add( cubeName, cube );
@@ -65,7 +106,7 @@ void IntroScene::CreateScene()
   unsigned long positionEntityComponentId = entitySystem->CreateEntityComponentAndAddTo( POSITION_COMPONENT, cubeEntityId, new PositionComponent() );
   unsigned long velocityEntityComponentId = entitySystem->CreateEntityComponentAndAddTo( VELOCITY_COMPONENT, cubeEntityId, new VelocityComponent() );
   unsigned long rotationEntityComponentId = entitySystem->CreateEntityComponentAndAddTo( ROTATION_COMPONENT, cubeEntityId, new RotationComponent() );
-  unsigned long autoRotationEntityComponentId = entitySystem->CreateEntityComponentAndAddTo( AUTOROTATION_COMPONENT, cubeEntityId, new AutoRotationComponent( 0, 1, 0 ) );
+  unsigned long autoRotationEntityComponentId = entitySystem->CreateEntityComponentAndAddTo( AUTOROTATION_COMPONENT, cubeEntityId, new AutoRotationComponent( 0, 90, 0 ) );
   unsigned long meshEntityComponentId = entitySystem->CreateEntityComponentAndAddTo( MESH_COMPONENT, cubeEntityId, new MeshComponent( cubeName ) );
 
   cout << "CubeEntityId = " << cubeEntityId << "\n";
