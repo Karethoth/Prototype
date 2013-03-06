@@ -73,7 +73,7 @@ int main( int argc, char **argv )
     tickMessage.frameStart = tmpTimePoint;
     time_t endTime = high_resolution_clock::to_time_t( tmpTimePoint );
     cout << "FrameDelta: " << tickMessage.frameDelta.count() << ", FrameStart: " << endTime << "\n";
-
+    cout << "FPS: " << 1000 / tickMessage.frameDelta.count() << "\n";
     SDL_Event event;
     while( SDL_PollEvent( &event ) )
     {
