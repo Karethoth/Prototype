@@ -119,6 +119,7 @@ void IntroScene::CreateScene()
   unsigned long cubeEntity3Id = entitySystem->CreateNewEntity( "CubeEntity3" );
   entitySystem->CreateEntityComponentAndAddTo( POSITION_COMPONENT, cubeEntity3Id, new PositionComponent( -3, -2, 0 ) );
   entitySystem->CreateEntityComponentAndAddTo( ROTATION_COMPONENT, cubeEntity3Id, new RotationComponent() );
+  entitySystem->CreateEntityComponentAndAddTo( VELOCITY_COMPONENT, cubeEntity3Id, new VelocityComponent( 0.5, 0.333, -0.25 ) );
   entitySystem->CreateEntityComponentAndAddTo( AUTOROTATION_COMPONENT, cubeEntity3Id, new AutoRotationComponent( 0, 45, 0 ) );
   entitySystem->CreateEntityComponentAndAddTo( MESH_COMPONENT, cubeEntity3Id, new MeshComponent( cubeName ) );
 
