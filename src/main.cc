@@ -72,8 +72,9 @@ int main( int argc, char **argv )
     tickMessage.frameDelta = duration_cast<GameTicks>( tmpTimePoint - tickMessage.frameStart );
     tickMessage.frameStart = tmpTimePoint;
     time_t endTime = high_resolution_clock::to_time_t( tmpTimePoint );
-    cout << "FrameDelta: " << tickMessage.frameDelta.count() << ", FrameStart: " << endTime << "\n";
-    cout << "FPS: " << 1000 / tickMessage.frameDelta.count() << "\n";
+
+    cout << "FPS@" << endTime << ": " << 1000 / tickMessage.frameDelta.count() << "\n";
+
     SDL_Event event;
     while( SDL_PollEvent( &event ) )
     {
@@ -86,20 +87,6 @@ int main( int argc, char **argv )
     }
   }
 
-  // Start systems
-  /*
-  MovementSystem movementSystem;
-  movementSystem.SetEntitySystem( &entitySystem );
-  movementSystem.SetPriority( 1000 );
-  pthread_t movementSystemThread;
-  int       movementSystemId;
-  void     *movementSystemStatus;
-
-  movementSystemId = pthread_create( &movementSystemThread, NULL, MovementSystem::RunSystem, static_cast<void*>( &movementSystem ) );
-
-  // Wait for the systems to stop
-  pthread_join( movementSystemThread, &movementSystemStatus );
-  */
   SDL_Quit();
   return 0;
 }

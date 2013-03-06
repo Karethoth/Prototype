@@ -102,28 +102,32 @@ void IntroScene::CreateScene()
 
 
   // Create cube entity and create it's EntityComponents for it
-  cubeEntityId = entitySystem->CreateNewEntity( "CubeEntity" );
-  unsigned long positionEntityComponentId = entitySystem->CreateEntityComponentAndAddTo( POSITION_COMPONENT, cubeEntityId, new PositionComponent() );
-  unsigned long velocityEntityComponentId = entitySystem->CreateEntityComponentAndAddTo( VELOCITY_COMPONENT, cubeEntityId, new VelocityComponent() );
-  unsigned long rotationEntityComponentId = entitySystem->CreateEntityComponentAndAddTo( ROTATION_COMPONENT, cubeEntityId, new RotationComponent() );
-  unsigned long autoRotationEntityComponentId = entitySystem->CreateEntityComponentAndAddTo( AUTOROTATION_COMPONENT, cubeEntityId, new AutoRotationComponent( 0, 90, 0 ) );
-  unsigned long meshEntityComponentId = entitySystem->CreateEntityComponentAndAddTo( MESH_COMPONENT, cubeEntityId, new MeshComponent( cubeName ) );
+  unsigned long cubeEntityId = entitySystem->CreateNewEntity( "CubeEntity1" );
+  entitySystem->CreateEntityComponentAndAddTo( POSITION_COMPONENT, cubeEntityId, new PositionComponent() );
+  entitySystem->CreateEntityComponentAndAddTo( ROTATION_COMPONENT, cubeEntityId, new RotationComponent() );
+  entitySystem->CreateEntityComponentAndAddTo( AUTOROTATION_COMPONENT, cubeEntityId, new AutoRotationComponent( 0, 90, 0 ) );
+  entitySystem->CreateEntityComponentAndAddTo( MESH_COMPONENT, cubeEntityId, new MeshComponent( cubeName ) );
 
-  cout << "CubeEntityId = " << cubeEntityId << "\n";
-  cout << "positionEntityComponentId = " << positionEntityComponentId << "\n";
-  cout << "velocityEntityComponentId = " << velocityEntityComponentId << "\n";
-  cout << "rotationEntityComponentId = " << rotationEntityComponentId << "\n";
-  cout << "autoRotationEntityComponentId = " << autoRotationEntityComponentId << "\n";
-  cout << "meshEntityComponentId = " << meshEntityComponentId << "\n";
+  // Create second cube
+  unsigned long cubeEntity2Id = entitySystem->CreateNewEntity( "CubeEntity2" );
+  entitySystem->CreateEntityComponentAndAddTo( POSITION_COMPONENT, cubeEntity2Id, new PositionComponent( 3, 2, 0 ) );
+  entitySystem->CreateEntityComponentAndAddTo( ROTATION_COMPONENT, cubeEntity2Id, new RotationComponent() );
+  entitySystem->CreateEntityComponentAndAddTo( AUTOROTATION_COMPONENT, cubeEntity2Id, new AutoRotationComponent( 0, 180, 0 ) );
+  entitySystem->CreateEntityComponentAndAddTo( MESH_COMPONENT, cubeEntity2Id, new MeshComponent( cubeName ) );
 
-  // Get position component(s) for the cube
-  vector<ComponentDataTemplate*> *positionData = entitySystem->GetComponentDataForEntry( ROTATION_COMPONENT, cubeEntityId );
-  cout << "positionData.size() = " << positionData->size() << "\n";
+  // Create third cube
+  unsigned long cubeEntity3Id = entitySystem->CreateNewEntity( "CubeEntity3" );
+  entitySystem->CreateEntityComponentAndAddTo( POSITION_COMPONENT, cubeEntity3Id, new PositionComponent( -3, -2, 0 ) );
+  entitySystem->CreateEntityComponentAndAddTo( ROTATION_COMPONENT, cubeEntity3Id, new RotationComponent() );
+  entitySystem->CreateEntityComponentAndAddTo( AUTOROTATION_COMPONENT, cubeEntity3Id, new AutoRotationComponent( 0, 45, 0 ) );
+  entitySystem->CreateEntityComponentAndAddTo( MESH_COMPONENT, cubeEntity3Id, new MeshComponent( cubeName ) );
 
-  for( vector<ComponentDataTemplate*>::iterator it = positionData->begin(); it != positionData->end(); ++it )
-  {
-    cout << (*it)->Print() << "\n";
-  }
+  // Create third cube
+  unsigned long cubeEntity4Id = entitySystem->CreateNewEntity( "CubeEntity4" );
+  entitySystem->CreateEntityComponentAndAddTo( POSITION_COMPONENT, cubeEntity4Id, new PositionComponent( 3, -2, 0 ) );
+  entitySystem->CreateEntityComponentAndAddTo( VELOCITY_COMPONENT, cubeEntity4Id, new VelocityComponent( -0.5, 0, 0 ) );
+  entitySystem->CreateEntityComponentAndAddTo( ROTATION_COMPONENT, cubeEntity4Id, new RotationComponent() );
+  entitySystem->CreateEntityComponentAndAddTo( MESH_COMPONENT, cubeEntity4Id, new MeshComponent( cubeName ) );
 }
 
 

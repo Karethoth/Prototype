@@ -17,7 +17,6 @@ class IntroScene : public Engine::Scene
 
 
  protected:
-  unsigned long cubeEntityId;
   unsigned long sceneLengthMs;
 };
 

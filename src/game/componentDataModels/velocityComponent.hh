@@ -9,6 +9,7 @@ class VelocityComponent : public Engine::ComponentDataTemplate
 {
  public:
   VelocityComponent();
+  VelocityComponent( float, float, float );
   Engine::Vector velocity;
 
   std::string Print();

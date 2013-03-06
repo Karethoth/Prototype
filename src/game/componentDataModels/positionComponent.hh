@@ -9,6 +9,8 @@ class PositionComponent : public Engine::ComponentDataTemplate
 {
  public:
   PositionComponent();
+  PositionComponent( float, float, float );
+
   Engine::Vector position;
 
   std::string Print();

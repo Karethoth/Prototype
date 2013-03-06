@@ -57,6 +57,8 @@ bool RenderSystem::Tick( Message *message )
 
   for( auto it : *meshes )
   {
+    glPushMatrix();
+
     mesh = static_cast<MeshComponent*>( it );
 
     mesh->Lock();
@@ -76,18 +78,7 @@ bool RenderSystem::Tick( Message *message )
       if( rotation )
         rotation->Lock();
 
-
-      cout << "Drawing entity ID " << mesh->entityId << ":\n";
-      cout << "\t" << mesh->Print() << "\n";
-      cout << "\t" << position->Print() << "\n";
-      if( rotation )
-      {
-        cout << "\t" << rotation->Print() << "\n";
-      }
-      else
-      {
-        cout << "\tRotation: No rotation.\n";
-      }
+      glTranslatef( position->position.x, position->position.y, position->position.z );
 
       if( rotation )
       {
@@ -96,7 +87,6 @@ bool RenderSystem::Tick( Message *message )
         glRotatef( rotation->rotation.z, 0.0, 0.0, 1.0 );
       }
 
-      glTranslatef( position->position.x, position->position.y, position->position.z );
 
       shared_ptr<Mesh> meshPointer = meshManager->Get( mesh->mesh );
 
@@ -123,6 +113,7 @@ bool RenderSystem::Tick( Message *message )
         rotation->Unlock();
     }
 
+    glPopMatrix();
     mesh->Unlock();
   }
 

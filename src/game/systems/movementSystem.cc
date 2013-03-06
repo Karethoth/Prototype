@@ -52,7 +52,7 @@ bool MovementSystem::Tick( Message *message )
     vector<ComponentDataTemplate*> *positions = entitySystem->GetComponentDataForEntry( POSITION_COMPONENT, velocity->entityId );
     if( positions->size() > 0 )
     {
-      float multiplier = (float)tickMessage->frameDelta.count()/10000.0;
+      float multiplier = (float)tickMessage->frameDelta.count()/1000.0;
       PositionComponent *position = dynamic_cast<PositionComponent*>( (*positions->begin()) );
       position->Lock();
       position->position.x += velocity->velocity.x * multiplier;
