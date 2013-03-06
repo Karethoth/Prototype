@@ -22,4 +22,4 @@ namespace Engine
   };
 }
 
-#endif // WINDOW_HH_INCLUDED
+#endif // __WINDOW_HH__
