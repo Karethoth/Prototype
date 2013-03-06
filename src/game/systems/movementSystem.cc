@@ -65,5 +65,5 @@ bool MovementSystem::Tick( Message *message )
   }
 
   isRunning = false;
-  return nullptr;
+  return true;
 }

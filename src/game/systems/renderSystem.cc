@@ -7,6 +7,8 @@
 #include <iostream>
 #include <memory>
 #include <vector>
+#include <SDL/SDL.h>
+#include <GL/gl.h>
 
 using namespace Engine;
 using namespace std;
@@ -36,8 +38,10 @@ void* RenderSystem::Run()
 
 bool RenderSystem::Tick( Message *message )
 {
-  TickMessage *tickMessage = static_cast<TickMessage*>( message );
+  //TickMessage *tickMessage = static_cast<TickMessage*>( message );
   isRunning = true;
+
+  PreRender();
 
   vector<ComponentDataTemplate*> *meshes = entitySystem->GetComponentDatasOfType( MESH_COMPONENT );
 
@@ -86,6 +90,25 @@ bool RenderSystem::Tick( Message *message )
     mesh->Unlock();
   }
 
+  PostRender();
+
   isRunning = false;
-  return nullptr;
+  return true;
+}
+
+
+
+void RenderSystem::PreRender()
+{
+  glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+
+  glMatrixMode( GL_MODELVIEW );
+  glLoadIdentity( );
+}
+
+
+
+void RenderSystem::PostRender()
+{
+  SDL_GL_SwapBuffers( );
 }

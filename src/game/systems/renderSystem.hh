@@ -14,6 +14,9 @@ class RenderSystem : public Engine::BaseSystem
 
  protected:
   virtual void* Run();
+
+  void PreRender();
+  void PostRender();
 };
 
 #endif // __RENDERSYSTEM_HH__

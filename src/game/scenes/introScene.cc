@@ -93,7 +93,8 @@ bool IntroScene::Tick( Message *message )
 
   for( auto sys : systems )
   {
-    sys.second->Tick( message );
+    if( !sys.second->Tick( message ) )
+      return false;
   }
 
   return true;

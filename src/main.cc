@@ -14,6 +14,22 @@ EntitySystem entitySystem;
 
 int main( int argc, char **argv )
 {
+  // Init SDL
+  SDL_Init( SDL_INIT_VIDEO );
+  SDL_WM_SetCaption( "Prototype", nullptr );
+  SDL_Surface *screen = SDL_SetVideoMode( 600, 400, 32, SDL_OPENGL | SDL_RESIZABLE );
+
+  // Setup OpenGL
+  float windowRatio = (float) 600 / (float) 400;
+  glShadeModel( GL_SMOOTH );
+  glCullFace( GL_BACK );
+  glFrontFace( GL_CCW );
+  glEnable( GL_CULL_FACE );
+  glClearColor( 0, 0, 0, 0 );
+  glViewport( 0, 0, 600, 400 );
+  gluPerspective( 60.0, windowRatio, 1.0, 1024.0 );
+
+
   // Set the Entity System up
   entitySystem = EntitySystem();
   shared_ptr<EntitySystem> entitySys = shared_ptr<EntitySystem>( &entitySystem );
@@ -46,13 +62,27 @@ int main( int argc, char **argv )
   tickMessage.frameDelta = GameTicks( 1 );
   time_point<high_resolution_clock> tmpTimePoint;
 
-  while( sceneStack.Get( 0 )->Tick( &tickMessage ) )
+  bool running = true;
+
+  while( running && sceneStack.Get( 0 )->Tick( &tickMessage ) )
   {
     tmpTimePoint = high_resolution_clock::now();
     tickMessage.frameDelta = duration_cast<GameTicks>( tmpTimePoint - tickMessage.frameStart );
     tickMessage.frameStart = tmpTimePoint;
     time_t endTime = high_resolution_clock::to_time_t( tmpTimePoint );
     cout << "FrameDelta: " << tickMessage.frameDelta.count() << ", FrameStart: " << endTime << "\n";
+
+    SDL_Event event;
+    while( SDL_PollEvent( &event ) )
+    {
+      switch( event.type )
+      {
+       case SDL_KEYDOWN:
+       case SDL_QUIT:
+        running = false;
+        break;
+      }
+    }
   }
 
   // Start systems
@@ -69,5 +99,6 @@ int main( int argc, char **argv )
   // Wait for the systems to stop
   pthread_join( movementSystemThread, &movementSystemStatus );
   */
+  SDL_Quit();
   return 0;
 }
