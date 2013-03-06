@@ -7,8 +7,7 @@
 #include <iostream>
 #include <memory>
 #include <vector>
-#include <SDL/SDL.h>
-#include <GL/gl.h>
+#include <GL/glfw.h>
 
 using namespace Engine;
 using namespace Engine::Managers;
@@ -145,5 +144,7 @@ void RenderSystem::PostRender()
   glPolygonMode(GL_FRONT, GL_FILL);
   glPolygonMode(GL_BACK, GL_FILL);
 
-  SDL_GL_SwapBuffers( );
+  glFlush();
+
+  glfwSwapBuffers();
 }

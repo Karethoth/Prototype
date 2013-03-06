@@ -5,8 +5,8 @@
 #include <memory>
 #include <string>
 #include <chrono>
-#include <SDL/SDL.h>
-#include <GL/gl.h>
+#include <GL/glew.h>
+#include <GL/glfw.h>
 #include <GL/glu.h>
 
 #include "engine/managers/sceneManager.hh"

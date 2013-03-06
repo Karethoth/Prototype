@@ -14,10 +14,35 @@ EntitySystem entitySystem;
 
 int main( int argc, char **argv )
 {
-  // Init SDL
-  SDL_Init( SDL_INIT_VIDEO );
-  SDL_WM_SetCaption( "Prototype", nullptr );
-  SDL_Surface *screen = SDL_SetVideoMode( 600, 400, 32, SDL_OPENGL | SDL_RESIZABLE );
+  // Create the window
+  if( !glfwInit() )
+  {
+    fprintf( stderr, "Failed to initialize GLFW\n" );
+    return -1;
+  }
+
+  /*
+  glfwOpenWindowHint( GLFW_FSAA_SAMPLES, 4 );
+  glfwOpenWindowHint( GLFW_OPENGL_VERSION_MAJOR, 3 );
+  glfwOpenWindowHint( GLFW_OPENGL_VERSION_MINOR, 3 );
+  glfwOpenWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );
+  */
+
+  if( !glfwOpenWindow( 600, 400, 0,0,0,0, 32,0, GLFW_WINDOW ) )
+  {
+    fprintf( stderr, "Failed to open GLFW window\n" );
+    glfwTerminate();
+    return -1;
+  }
+
+  // Initialize GLEW
+  bool glewExperimental = true; // Needed in core profile
+  if( glewInit() != GLEW_OK ) {
+    fprintf(stderr, "Failed to initialize GLEW\n");
+    return -1;
+  }
+
+  glfwSetWindowTitle( "Prototype" );
 
   // Setup OpenGL
   float windowRatio = (float) 600 / (float) 400;
@@ -64,8 +89,9 @@ int main( int argc, char **argv )
   tickMessage.frameDelta = GameTicks( 1 );
   time_point<high_resolution_clock> tmpTimePoint;
 
-  bool running = true;
+  glfwEnable( GLFW_STICKY_KEYS );
 
+  bool running = true;
   while( running && sceneStack.Get( 0 )->Tick( &tickMessage ) )
   {
     tmpTimePoint = high_resolution_clock::now();
@@ -75,18 +101,14 @@ int main( int argc, char **argv )
 
     cout << "FPS@" << endTime << ": " << 1000 / tickMessage.frameDelta.count() << "\n";
 
-    SDL_Event event;
-    while( SDL_PollEvent( &event ) )
+    if( glfwGetKey( GLFW_KEY_ESC ) == GLFW_PRESS ||
+       !glfwGetWindowParam( GLFW_OPENED ) )
     {
-      switch( event.type )
-      {
-       case SDL_QUIT:
-        running = false;
-        break;
-      }
+      running = false;
     }
   }
 
-  SDL_Quit();
+  glfwTerminate();
+
   return 0;
 }
