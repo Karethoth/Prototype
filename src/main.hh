@@ -1,10 +1,13 @@
 #ifndef __MAIN_HH__
 #define __MAIN_HH__
 
+#define GLEW_STATIC
+
 #include <iostream>
 #include <memory>
 #include <string>
 #include <chrono>
+#include <fstream>
 #include <GL/glew.h>
 #include <GL/glfw.h>
 #include <GL/glu.h>

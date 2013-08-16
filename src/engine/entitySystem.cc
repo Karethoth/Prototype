@@ -14,14 +14,14 @@ ComponentDataTemplate::~ComponentDataTemplate()
 
 int ComponentDataTemplate::Lock()
 {
-  return pthread_mutex_lock( &mutex );
+  return mtx.lock();
 }
 
 
 
 int ComponentDataTemplate::Unlock()
 {
-  return pthread_mutex_unlock( &mutex );
+  return mtx.unlock();
 }
 
 
@@ -36,7 +36,6 @@ void ComponentDataTemplate::SetIds( unsigned long entity, unsigned long componen
 
 EntitySystem::EntitySystem()
 {
-  pthread_mutex_init( &entitySystemMutex,NULL );
 }
 
 
@@ -59,7 +58,7 @@ unsigned long EntitySystem::CreateNewEntity( string debugName )
 {
   unsigned long entityId;
 
-  pthread_mutex_lock( &entitySystemMutex );
+  entitySystemMutex.lock();
 
   if( entities.size() > 0 )
   {
@@ -74,7 +73,7 @@ unsigned long EntitySystem::CreateNewEntity( string debugName )
 
   entities[entityId] = debugName;
 
-  pthread_mutex_unlock( &entitySystemMutex );
+  entitySystemMutex.unlock();
 
   return entityId;
 }

@@ -1,10 +1,13 @@
 #include "introScene.hh"
 #include "../../engine/mesh.hh"
+#include "../../engine/obj.hh"
+#include "../../engine/managers/objManager.hh"
 #include "../components.hh"
 #include "../messages/tickMessage.hh"
 #include "../systems/movementSystem.hh"
 #include "../systems/rotationSystem.hh"
 #include "../systems/renderSystem.hh"
+
 
 #include <iostream>
 #include <vector>
@@ -51,52 +54,24 @@ void IntroScene::CreateScene()
   cube->AddTriangle( t );
   t = {
     { -1, 1, 1 },
+    { 1, 10, 1 },
+    { 2, -1, 1 }
+  };
+  cube->AddTriangle( t );
+  t = {
+    { -1, 1, -1 },
     { 1, -1, 1 },
-    { -1, -1, 1 }
-  };
-  cube->AddTriangle( t );
-
-  t = {
-    { 1, -1, -1 },
-    { 1, 1, -1 },
-    { -1, 1, -1 }
-  };
-  cube->AddTriangle( t );
-  t = {
-    { 1, -1, -1 },
-
-    { -1, 1, -1 },
-    { -1, -1, -1 }
-  };
-  cube->AddTriangle( t );
-
-  t = {
-    { -1, -1, -1 },
-    { -1, 1, -1 },
-    { -1, 1, 1 }
-  };
-  cube->AddTriangle( t );
-  t = {
-    { -1, -1, 1 },
-    { -1, 1, 1 },
-    { -1, -1, -1 }
-  };
-  cube->AddTriangle( t );
-
-  t = {
-    { 1, -1, -1 },
-    { 1, 1, -1 },
     { 1, 1, 1 }
   };
   cube->AddTriangle( t );
-  t = {
-    { 1, -1, 1 },
-    { 1, 1, 1 },
-    { 1, -1, -1 }
-  };
-  cube->AddTriangle( t );
-
   string cubeName = "Cube";
+
+  Managers::OBJManager objManager;
+  string cubeObjName = "cube.obj";
+  if( objManager.Load( cubeObjName ) )
+    cout << "Loading obj succeeded.\n";
+  else
+    cout << "Loading obj failed.\n";
 
   meshManager.Add( cubeName, cube );
 
@@ -120,7 +95,7 @@ void IntroScene::CreateScene()
   entitySystem->CreateEntityComponentAndAddTo( POSITION_COMPONENT, cubeEntity3Id, new PositionComponent( -3, -2, 0 ) );
   entitySystem->CreateEntityComponentAndAddTo( ROTATION_COMPONENT, cubeEntity3Id, new RotationComponent() );
   entitySystem->CreateEntityComponentAndAddTo( VELOCITY_COMPONENT, cubeEntity3Id, new VelocityComponent( 0.5, 0.333, -0.25 ) );
-  entitySystem->CreateEntityComponentAndAddTo( AUTOROTATION_COMPONENT, cubeEntity3Id, new AutoRotationComponent( 0, 45, 0 ) );
+  entitySystem->CreateEntityComponentAndAddTo( AUTOROTATION_COMPONENT, cubeEntity3Id, new AutoRotationComponent( 180, -360, 90 ) );
   entitySystem->CreateEntityComponentAndAddTo( MESH_COMPONENT, cubeEntity3Id, new MeshComponent( cubeName ) );
 
   // Create fourth cube

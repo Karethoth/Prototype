@@ -1,7 +1,8 @@
 #ifndef __ENTITYSYSTEM_HH__
 #define __ENTITYSYSTEM_HH__
 
-#include <pthread.h>
+#include <thread>
+#include <mutex>
 #include <string>
 #include <map>
 #include <vector>
@@ -54,7 +55,7 @@ namespace Engine
 
 
    protected:
-    pthread_mutex_t mutex;
+    std::mutex mtx;
   };
 
 
@@ -86,7 +87,7 @@ namespace Engine
     Component* GetComponent( int componentType );
 
    private:
-    pthread_mutex_t entitySystemMutex;
+    std::mutex entitySystemMutex;
   };
 }
 

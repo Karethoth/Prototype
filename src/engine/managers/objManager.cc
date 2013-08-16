@@ -14,3 +14,4 @@ bool OBJManager::Load( string &name )
   Add( name, obj );
   return true;
 }
+

@@ -28,7 +28,7 @@ MovementSystem::~MovementSystem()
 
 void* MovementSystem::Run()
 {
-  pthread_exit( NULL );
+  thread_exit( NULL );
   return nullptr;
 }
 
@@ -67,3 +67,4 @@ bool MovementSystem::Tick( Message *message )
   isRunning = false;
   return true;
 }
+

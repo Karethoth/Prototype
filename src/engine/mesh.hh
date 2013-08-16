@@ -16,7 +16,6 @@ namespace Engine
     void AddTriangle( Triangle& );
     std::vector<Triangle> *GetTriangles();
 
-
    private:
     std::vector<Triangle> triangles;
   };

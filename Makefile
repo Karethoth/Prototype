@@ -4,7 +4,7 @@ BINDIR = bin
 
 DIRS = $(OBJDIR) $(BINDIR)
 
-LIBS = 
+LIBS = -lglut32 -lopengl32 -lglfw
 
 CXXTESTGEN = ../../cxxtest/bin/cxxtestgen
 CXXTESTFLAGS = --error-printer
@@ -20,6 +20,13 @@ TESTTGT = runTests
 
 OBJS=\
      $(OBJDIR)/game/componentDataModels/positionComponent.o \
+     $(OBJDIR)/game/componentDataModels/rotationComponent.o \
+     $(OBJDIR)/game/componentDataModels/autoRotationComponent.o \
+     $(OBJDIR)/game/componentDataModels/velocityComponent.o \
+     $(OBJDIR)/game/componentDataModels/meshComponent.o \
+     $(OBJDIR)/game/systems/movementSystem.o \
+     $(OBJDIR)/game/systems/renderSystem.o \
+     $(OBJDIR)/game/systems/rotationSystem.o \
      $(OBJDIR)/game/scenes/introScene.o \
      $(OBJDIR)/game/components.o \
      $(OBJDIR)/engine/managers/meshManager.o \
@@ -57,18 +64,19 @@ $(BINDIR):
 	@mkdir $(BINDIR)
 
 $(OBJDIR):
-	@mkdir $(OBJDIR)
-	@mkdir $(OBJDIR)/tests
-	@mkdir $(OBJDIR)/game
-	@mkdir $(OBJDIR)/game/componentDataModels
-	@mkdir $(OBJDIR)/game/scenes
-	@mkdir $(OBJDIR)/engine
-	@mkdir $(OBJDIR)/engine/managers
-	@mkdir $(OBJDIR)/engine/stacks
+	python mkdir.py $(OBJDIR)
+	python mkdir.py $(OBJDIR)/tests
+	python mkdir.py $(OBJDIR)/game
+	python mkdir.py $(OBJDIR)/game/componentDataModels
+	python mkdir.py $(OBJDIR)/game/systems
+	python mkdir.py $(OBJDIR)/game/scenes
+	python mkdir.py $(OBJDIR)/engine
+	python mkdir.py $(OBJDIR)/engine/managers
+	python mkdir.py $(OBJDIR)/engine/stacks
 
 clean:
-	rm -rf $(BINDIR)
 	rm -rf $(OBJDIR)
+	rm -rf $(BINDIR)
 	rm -rf $(TGT)
 
 fresh: clean all
