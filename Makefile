@@ -4,7 +4,8 @@ BINDIR = bin
 
 DIRS = $(OBJDIR) $(BINDIR)
 
-LIBS = -pthread -lglfw -lGL -lGLU -lGLEW
+LIBS = -pthread -lglfw -lGLEW -lGL -lGLU
+WINLIBS = -pthread -lglfw -lglew32s -lGL -lGLU
 
 CXXTESTGEN = ../../cxxtest/bin/cxxtestgen
 CXXTESTFLAGS = --error-printer
@@ -47,16 +48,22 @@ TESTS=\
 	$(OBJDIR)/tests/entitySystemTestSuite.test.cc
 
 
-all: $(TGT) $(TESTTGT)
+all: $(TGT) #$(TESTTGT)
+
+
+win:
+	mingw32-make LIBS="$(WINLIBS)"
 
  
 $(TGT): $(DIRS) $(BINDIR)/$(TGT)
-	cp $(BINDIR)/$(TGT) $(TGT)
+	@cp $(BINDIR)/$(TGT) $(TGT)
+	@echo ""
 	@echo "$@ up to date"
+	@echo ""
 
 
 $(BINDIR)/$(TGT): $(OBJS) $(MAINOBJ)
-	$(CC) $(LIBS) $(CFLAGS) -o $@ $(OBJS) $(MAINOBJ)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(MAINOBJ) $(LIBS)
 
 $(OBJDIR)/tests/%.test.cc: $(SRCDIR)/tests/%.cc
 	$(CXXTESTGEN) $(CXXTESTFLAGS) -o $@ $?
