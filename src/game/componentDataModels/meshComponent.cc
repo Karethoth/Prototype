@@ -8,15 +8,13 @@ using namespace std;
 
 MeshComponent::MeshComponent()
 {
-  mutex = PTHREAD_MUTEX_INITIALIZER;
-  mesh = "NULL";
+  MeshComponent( "NULL" );
 }
 
 
 
 MeshComponent::MeshComponent( string meshName )
 {
-  mutex = PTHREAD_MUTEX_INITIALIZER;
   mesh = meshName;
 }
 
@@ -29,3 +27,4 @@ string MeshComponent::Print()
   msg.append( "'}" );
   return msg;
 }
+

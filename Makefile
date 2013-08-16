@@ -4,15 +4,15 @@ BINDIR = bin
 
 DIRS = $(OBJDIR) $(BINDIR)
 
-LIBS = -lglut32 -lopengl32 -lglfw
+LIBS = -pthread -lglfw -lGL -lGLU -lGLEW
 
 CXXTESTGEN = ../../cxxtest/bin/cxxtestgen
 CXXTESTFLAGS = --error-printer
 
-CC    = g++ -g
+CC    = g++
 CWARN = -W -Wall -Wshadow -Wimplicit -Wreturn-type -Wformat -Wparentheses -Wpointer-arith -Wuninitialized -O
 
-CFLAGS = -std=c++11
+CFLAGS = -std=c++11 -g
 
 TGT     = prototype
 TESTTGT = runTests
@@ -30,9 +30,13 @@ OBJS=\
      $(OBJDIR)/game/scenes/introScene.o \
      $(OBJDIR)/game/components.o \
      $(OBJDIR)/engine/managers/meshManager.o \
+     $(OBJDIR)/engine/managers/objManager.o \
      $(OBJDIR)/engine/managers/sceneManager.o \
-     $(OBJDIR)/engine/scene.o \
      $(OBJDIR)/engine/mesh.o \
+     $(OBJDIR)/engine/obj.o \
+     $(OBJDIR)/engine/message.o \
+     $(OBJDIR)/engine/scene.o \
+     $(OBJDIR)/engine/baseSystem.o \
      $(OBJDIR)/engine/entitySystem.o 
 
 MAINOBJ=\

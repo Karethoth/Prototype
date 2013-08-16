@@ -14,14 +14,16 @@ ComponentDataTemplate::~ComponentDataTemplate()
 
 int ComponentDataTemplate::Lock()
 {
-  return mtx.lock();
+  mtx.lock();
+  return 0;
 }
 
 
 
 int ComponentDataTemplate::Unlock()
 {
-  return mtx.unlock();
+  mtx.unlock();
+  return 0;
 }
 
 
@@ -82,13 +84,13 @@ unsigned long EntitySystem::CreateNewEntity( string debugName )
 
 bool EntitySystem::CreateComponent( Component component )
 {
-  pthread_mutex_lock( &entitySystemMutex );
+  entitySystemMutex.lock();
 
   components[component.componentId] = component;
 
   // Ignoring assemblage for now
 
-  pthread_mutex_unlock( &entitySystemMutex );
+  entitySystemMutex.unlock();
   return true;
 }
 
@@ -111,7 +113,7 @@ unsigned long EntitySystem::CreateEntityComponentAndAddTo( int componentType, un
     return 0;
   }
 
-  pthread_mutex_lock( &entitySystemMutex );
+  entitySystemMutex.lock();
 
   if( componentData[component->tableName].size() > 0 )
   {
@@ -130,7 +132,7 @@ unsigned long EntitySystem::CreateEntityComponentAndAddTo( int componentType, un
   EntityComponent entityComponent = { entityId, componentType, componentDataId };
   entityComponents.insert( pair<unsigned long, EntityComponent>( entityId, entityComponent ) );
 
-  pthread_mutex_unlock( &entitySystemMutex );
+  entitySystemMutex.unlock();
   return componentDataId;
 }
 
@@ -145,7 +147,7 @@ vector<ComponentDataTemplate*>* EntitySystem::GetComponentDataForEntry( int comp
     return components;
   }
 
-  pthread_mutex_lock( &entitySystemMutex );
+  entitySystemMutex.lock();
 
   pair< multimap<unsigned long, EntityComponent>::iterator,
         multimap<unsigned long, EntityComponent>::iterator > ret;
@@ -175,7 +177,7 @@ vector<ComponentDataTemplate*>* EntitySystem::GetComponentDataForEntry( int comp
     components->push_back( table[(*it).second.componentDataId] );
   }
 
-  pthread_mutex_unlock( &entitySystemMutex );
+  entitySystemMutex.unlock();
 
   // Return vector
   return components;
@@ -192,7 +194,7 @@ vector<ComponentDataTemplate*>* EntitySystem::GetComponentDatasOfType( int compo
     return components;
   }
 
-  pthread_mutex_lock( &entitySystemMutex );
+  entitySystemMutex.lock();
 
   if( !component )
     return components;
@@ -206,7 +208,7 @@ vector<ComponentDataTemplate*>* EntitySystem::GetComponentDatasOfType( int compo
     components->push_back( (*cit).second );
   }
 
-  pthread_mutex_unlock( &entitySystemMutex );
+  entitySystemMutex.unlock();
 
   // Return vector
   return components;
@@ -219,7 +221,7 @@ EntityComponent* EntitySystem::GetEntityComponent( int componentType, unsigned l
   EntityComponent *entityComponent = nullptr;
   std::multimap<unsigned long, EntityComponent>::iterator it;
 
-  pthread_mutex_lock( &entitySystemMutex );
+  entitySystemMutex.lock();
 
   for( it = entityComponents.begin(); it != entityComponents.end(); ++it )
   {
@@ -231,7 +233,7 @@ EntityComponent* EntitySystem::GetEntityComponent( int componentType, unsigned l
     }
   }
 
-  pthread_mutex_unlock( &entitySystemMutex );
+  entitySystemMutex.unlock();
 
   return entityComponent;
 }

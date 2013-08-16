@@ -15,7 +15,6 @@ PositionComponent::PositionComponent()
 
 PositionComponent::PositionComponent( float x, float y, float z )
 {
-  mutex = PTHREAD_MUTEX_INITIALIZER;
   position = {x,y,z};
 }
 
@@ -32,3 +31,4 @@ string PositionComponent::Print()
   msg.append( "}" );
   return msg;
 }
+

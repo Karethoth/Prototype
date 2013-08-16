@@ -8,7 +8,6 @@ using namespace std;
 
 RotationComponent::RotationComponent()
 {
-  mutex = PTHREAD_MUTEX_INITIALIZER;
   rotation = {0,0,0};
 }
 
@@ -25,3 +24,4 @@ string RotationComponent::Print()
   msg.append( "}" );
   return msg;
 }
+

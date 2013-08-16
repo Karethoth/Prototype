@@ -8,15 +8,13 @@ using namespace std;
 
 AutoRotationComponent::AutoRotationComponent()
 {
-  mutex = PTHREAD_MUTEX_INITIALIZER;
-  tickRotation = {0,0,0};
+  AutoRotationComponent( 0, 0, 0 );
 }
 
 
 
 AutoRotationComponent::AutoRotationComponent( float x, float y, float z )
 {
-  mutex = PTHREAD_MUTEX_INITIALIZER;
   tickRotation = {x,y,z};
 }
 
@@ -33,3 +31,4 @@ string AutoRotationComponent::Print()
   msg.append( "}" );
   return msg;
 }
+

@@ -136,7 +136,6 @@ int main( int argc, char **argv )
 
 
   // Set the Entity System up
-  entitySystem = EntitySystem();
   shared_ptr<EntitySystem> entitySys = shared_ptr<EntitySystem>( &entitySystem );
 
   // Set all of the different component types up

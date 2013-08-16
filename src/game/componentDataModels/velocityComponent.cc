@@ -8,7 +8,6 @@ using namespace std;
 
 VelocityComponent::VelocityComponent()
 {
-  mutex = PTHREAD_MUTEX_INITIALIZER;
   velocity = {0,0,0};
 }
 
@@ -16,7 +15,6 @@ VelocityComponent::VelocityComponent()
 
 VelocityComponent::VelocityComponent( float x, float y, float z )
 {
-  mutex = PTHREAD_MUTEX_INITIALIZER;
   velocity = {x,y,z};
 }
 
@@ -33,3 +31,4 @@ string VelocityComponent::Print()
   msg.append( "}" );
   return msg;
 }
+

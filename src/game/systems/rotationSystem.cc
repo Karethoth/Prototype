@@ -28,7 +28,6 @@ RotationSystem::~RotationSystem()
 
 void* RotationSystem::Run()
 {
-  pthread_exit( NULL );
   return nullptr;
 }
 
@@ -85,3 +84,4 @@ bool RotationSystem::Tick( Message *message )
   isRunning = false;
   return true;
 }
+

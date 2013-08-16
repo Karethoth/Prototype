@@ -28,7 +28,6 @@ MovementSystem::~MovementSystem()
 
 void* MovementSystem::Run()
 {
-  thread_exit( NULL );
   return nullptr;
 }
 
