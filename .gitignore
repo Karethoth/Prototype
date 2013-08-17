@@ -10,3 +10,4 @@ runTests
 obj
 bin
 *.test.cc
+*.dll

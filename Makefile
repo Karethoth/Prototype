@@ -5,7 +5,7 @@ BINDIR = bin
 DIRS = $(OBJDIR) $(BINDIR)
 
 LIBS = -pthread -lglfw -lGLEW -lGL -lGLU
-WINLIBS = -pthread -lglfw -lglew32s -lGL -lGLU
+WINLIBS = -pthread -lglfw -lglew32s -lopengl32 -lglu32
 
 CXXTESTGEN = ../../cxxtest/bin/cxxtestgen
 CXXTESTFLAGS = --error-printer
